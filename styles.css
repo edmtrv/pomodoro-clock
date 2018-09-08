@@ -1,0 +1,36 @@
+/* General */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+}
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 400px;
+  background: rgba(231, 231, 231, 0.767);
+  border-radius: 5px;
+  box-shadow: 0px 5px 15px rgba(197, 197, 197, 0.733);
+}
+
+.setting {
+  float: left;
+  width: 50%;
+  text-align: center;
+  padding: 20px 20px;
+}

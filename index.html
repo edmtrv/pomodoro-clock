@@ -5,11 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css">
   <title>Pomodoro Clock</title>
 </head>
 <body>
-  
+  <div class="container clearfix">
+    <section class="session setting">
+      <div class="name">Session</div>
+      <div class="length">
+        <i>-</i>
+        <span class="value">25</span>
+        <i>+</i>
+      </div>
+    </section>
+    <section class="break setting">
+      <div class="name">Break</div>
+      <div class="length">
+        <i>-</i>
+        <span class="value">5</span>
+        <i>+</i>
+      </div>
+    </section>
+    <section class="timer clearfix">
+      <div class="counter">25:00</div>
+      <div class="play-pause"><i class="material-icons">play_arrow</i></div>
+      <div class="reset"><i class="material-icons">replay</i></div>
+    </section>
+  </div>
   <script src="./app.js"></script>
 </body>
 </html>
