@@ -10,27 +10,30 @@
   <title>Pomodoro Clock</title>
 </head>
 <body>
-  <div class="container clearfix">
-    <section class="session setting">
-      <div class="name">Session</div>
-      <div class="length">
-        <i>-</i>
-        <span class="value">25</span>
-        <i>+</i>
-      </div>
+  <div class="container">
+    <section class="control clearfix">
+      <section class="session">
+          <div class="name">Session</div>
+          <div class="length">
+            <button data-action="dec" data-type="session">-</button>
+            <span class="value">25</span>
+            <button data-action="inc" data-type="session">+</button>
+          </div>
+        </section>
+        <section class="break">
+          <div class="name">Break</div>
+          <div class="length">
+            <button data-action="dec" data-type="break">-</button>
+            <span class="value">5</span>
+            <button data-action="inc" data-type="break">+</button>
+          </div>
+        </section>
     </section>
-    <section class="break setting">
-      <div class="name">Break</div>
-      <div class="length">
-        <i>-</i>
-        <span class="value">5</span>
-        <i>+</i>
-      </div>
-    </section>
+    
     <section class="timer clearfix">
       <div class="counter">25:00</div>
-      <div class="play-pause"><i class="material-icons">play_arrow</i></div>
-      <div class="reset"><i class="material-icons">replay</i></div>
+      <div class="play-pause"><button class="material-icons">play_arrow</button></div>
+      <div class="reset"><button class="material-icons">replay</button></div>
     </section>
   </div>
   <script src="./app.js"></script>

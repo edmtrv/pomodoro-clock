@@ -28,7 +28,7 @@ body {
   box-shadow: 0px 5px 15px rgba(197, 197, 197, 0.733);
 }
 
-.setting {
+.session, .break {
   float: left;
   width: 50%;
   text-align: center;
