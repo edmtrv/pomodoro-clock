@@ -1,29 +1,55 @@
-function handleChange(e) {
+// internal representation of both timers in seconds
+const state = {
+  timers: {
+    session: 1500,
+    break: 300,
+    currentTimer: 0
+  },
+  session: true,
+  timerId: null
+};
+
+// control timers
+function handleInput(e) {
   if (e.target.dataset.type === 'session') {
-    const sessionValue = change(e.target.dataset.action, sessionLength.textContent);
-    sessionLength.textContent = sessionValue;
-    timerLength.textContent = `${leftPad("00", sessionValue)}:00`;
+    const sessionTime = change(e.target.dataset.action, state.timers.session);
+    state.timers.session = sessionTime;
+    sessionLength.textContent = sessionTime / 60;
+    counter.textContent = `${leftPad(sessionTime / 60)}:00`;
   } else if (e.target.dataset.type === 'break') {
-    const breakValue = change(e.target.dataset.action, breakLength.textContent);
-    breakLength.textContent = breakValue;
+    const breakTime = change(e.target.dataset.action, state.timers.break);
+    state.timers.break = breakTime
+    breakLength.textContent = breakTime / 60;
   }
 }
 
 function change(action, value) {
-  let numericValue = +value;
+  let numericValue = value;
 
   if (action === 'inc') {
-    if (numericValue > 49) return numericValue;
-    numericValue += 1;
+    if (numericValue > 3000) return numericValue;
+    numericValue += 60;
   } else {
-    if (numericValue < 2) return numericValue;
-    numericValue -= 1;
+    if (numericValue < 120) return numericValue;
+    numericValue -= 60;
   }
 
-  return numericValue + "";
+  return numericValue;
 }
 
-function leftPad(pad, str) {
+function decrement() {
+  state.currentTimer--;
+  counter.textContent = timeString(state.currentTimer);
+}
+
+function timeString(seconds) {
+  let sValue = Math.floor(seconds % 60);
+  let mValue = Math.floor(seconds / 60);
+
+  return `${leftPad(mValue)}:${leftPad(sValue)}`;
+}
+
+function leftPad(str, pad = "00") {
   if (typeof str === 'undefined') {
     return pad;
   }
@@ -31,10 +57,33 @@ function leftPad(pad, str) {
   return (pad + str).slice(-pad.length);
 }
 
+function timerHandler(e) {
+  setupTimer();
+}
+
+function setupTimer() {
+  state.currentTimer = state.session ? state.timers.session : state.timers.break;
+  
+  state.timerId = setTimeout(runTimer, 1000);
+}
+
+function runTimer() {
+  decrement();
+  if (state.currentTimer === 0) {
+    state.session = !state.session;
+    clearTimeout(state.timerId);
+    setupTimer();
+  }
+  clearTimeout(state.timerId);
+  state.timerId = setTimeout(runTimer, 1000);
+}
+
 const sessionLength = document.querySelector('.session .value');
 const breakLength = document.querySelector('.break .value');
-const timerLength = document.querySelector('.timer .counter');
+const counter = document.querySelector('.timer .counter');
 
 const control = document.querySelector('.control');
+const startButton = document.querySelector('.start-pause');
 
-control.addEventListener('click', handleChange);
+control.addEventListener('click', handleInput);
+startButton.addEventListener('click', timerHandler);
