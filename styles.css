@@ -34,3 +34,11 @@ body {
   text-align: center;
   padding: 20px 20px;
 }
+
+.sessionAlert {
+  color: rgb(23, 150, 30);
+}
+
+.breakAlert {
+  color: rgb(180, 25, 25);
+}

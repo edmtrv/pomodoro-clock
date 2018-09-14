@@ -6,11 +6,12 @@ const state = {
     currentTimer: 0
   },
   session: true,
-  timerId: null
+  timerId: null,
+  active: false
 };
 
 // control timers
-function handleInput(e) {
+function inputHandler(e) {
   if (e.target.dataset.type === 'session') {
     const sessionTime = change(e.target.dataset.action, state.timers.session);
     state.timers.session = sessionTime;
@@ -38,8 +39,8 @@ function change(action, value) {
 }
 
 function decrement() {
-  state.currentTimer--;
-  counter.textContent = timeString(state.currentTimer);
+  state.timers.currentTimer--;
+  counter.textContent = timeString(state.timers.currentTimer);
 }
 
 function timeString(seconds) {
@@ -58,11 +59,45 @@ function leftPad(str, pad = "00") {
 }
 
 function timerHandler(e) {
-  setupTimer();
+  state.active = !state.active;
+
+  if (state.active) {
+    startButton.textContent = 'pause';
+    setupTimer();
+  } else {
+    startButton.textContent = 'play_arrow';
+    clearTimeout(state.timerId);
+  }
+}
+
+function resetHandler() {
+  clearTimeout(state.timerId);
+  state.timers.session = 1500;
+  state.timers.break = 300;
+  state.timers.currentTimer = 0;
+  sessionLength.textContent = state.timers.session / 60;
+  breakLength.textContent = state.timers.break / 60;
+  counter.classList.remove('breakAlert');
+  counter.classList.remove('sessionAlert');
+  counter.textContent = `${leftPad(state.timers.session / 60)}:00`;
+  mode.textContent = 'Session';
+  startButton.textContent = 'play_arrow';
 }
 
 function setupTimer() {
-  state.currentTimer = state.session ? state.timers.session : state.timers.break;
+  if (state.timers.currentTimer === 0) {
+    state.timers.currentTimer = state.session ? state.timers.session : state.timers.break;
+  }
+
+  if (state.session) {
+    mode.textContent = 'Session';
+    counter.classList.add('sessionAlert');
+    counter.classList.remove('breakAlert');
+  } else {
+    mode.textContent = 'Break';
+    counter.classList.add('breakAlert');
+    counter.classList.remove('sessionAlert');
+  }
   
   state.timerId = setTimeout(runTimer, 1000);
 }
@@ -83,7 +118,11 @@ const breakLength = document.querySelector('.break .value');
 const counter = document.querySelector('.timer .counter');
 
 const control = document.querySelector('.control');
-const startButton = document.querySelector('.start-pause');
+const mode = document.querySelector('.mode');
 
-control.addEventListener('click', handleInput);
+const startButton = document.querySelector('.start-pause button');
+const resetButton = document.querySelector('.reset'); 
+
+control.addEventListener('click', inputHandler);
 startButton.addEventListener('click', timerHandler);
+resetButton.addEventListener('click', resetHandler);
