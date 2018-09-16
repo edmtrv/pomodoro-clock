@@ -11,21 +11,21 @@
 </head>
 <body>
   <div class="container">
-    <section class="control clearfix">
+    <section class="settings clearfix">
       <section class="session">
           <div class="name">Session</div>
-          <div class="length">
-            <button data-action="dec" data-type="session">-</button>
-            <span class="value">25</span>
-            <button data-action="inc" data-type="session">+</button>
+          <div class="length clearfix">
+            <div class="control"><button data-action="dec" data-type="session">-</button></div>
+            <div class="value">25</div>
+            <div class="control"><button data-action="inc" data-type="session">+</button></div>
           </div>
         </section>
         <section class="break">
           <div class="name">Break</div>
-          <div class="length">
-            <button data-action="dec" data-type="break">-</button>
-            <span class="value">5</span>
-            <button data-action="inc" data-type="break">+</button>
+          <div class="length clearfix">
+            <div class="control"><button data-action="dec" data-type="break">-</button></div>
+            <div class="value">5</div>
+            <div class="control"><button data-action="inc" data-type="break">+</button></div>
           </div>
         </section>
     </section>
@@ -33,8 +33,10 @@
     <section class="timer clearfix">
       <div class="mode">Session</div>
       <div class="counter">25:00</div>
-      <div class="start-pause"><button class="material-icons">play_arrow</button></div>
-      <div class="reset"><button class="material-icons">replay</button></div>
+      <div class="buttons">
+        <button class="start-pause material-icons">play_arrow</button>
+        <button class="reset material-icons">replay</button>
+      </div>
     </section>
   </div>
   <script src="./app.js"></script>

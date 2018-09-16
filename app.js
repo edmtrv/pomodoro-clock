@@ -3,7 +3,7 @@ const state = {
   timers: {
     session: 1500,
     break: 300,
-    currentTimer: 0
+    currentTimer: -1
   },
   session: true,
   timerId: null,
@@ -12,6 +12,8 @@ const state = {
 
 // control timers
 function inputHandler(e) {
+  if (!(state.timers.currentTimer === -1)) resetHandler();
+
   if (e.target.dataset.type === 'session') {
     const sessionTime = change(e.target.dataset.action, state.timers.session);
     state.timers.session = sessionTime;
@@ -74,7 +76,7 @@ function resetHandler() {
   clearTimeout(state.timerId);
   state.timers.session = 1500;
   state.timers.break = 300;
-  state.timers.currentTimer = 0;
+  state.timers.currentTimer = -1;
   sessionLength.textContent = state.timers.session / 60;
   breakLength.textContent = state.timers.break / 60;
   counter.classList.remove('breakAlert');
@@ -82,10 +84,11 @@ function resetHandler() {
   counter.textContent = `${leftPad(state.timers.session / 60)}:00`;
   mode.textContent = 'Session';
   startButton.textContent = 'play_arrow';
+  state.active = false;
 }
 
 function setupTimer() {
-  if (state.timers.currentTimer === 0) {
+  if (state.timers.currentTimer === -1) {
     state.timers.currentTimer = state.session ? state.timers.session : state.timers.break;
   }
 
@@ -117,12 +120,12 @@ const sessionLength = document.querySelector('.session .value');
 const breakLength = document.querySelector('.break .value');
 const counter = document.querySelector('.timer .counter');
 
-const control = document.querySelector('.control');
+const settings = document.querySelector('.settings');
 const mode = document.querySelector('.mode');
 
-const startButton = document.querySelector('.start-pause button');
+const startButton = document.querySelector('.start-pause');
 const resetButton = document.querySelector('.reset'); 
 
-control.addEventListener('click', inputHandler);
+settings.addEventListener('click', inputHandler);
 startButton.addEventListener('click', timerHandler);
 resetButton.addEventListener('click', resetHandler);
