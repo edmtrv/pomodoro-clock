@@ -1,4 +1,4 @@
-# A Pomodoro Clock implementation in vanilla JS
+## A Pomodoro Clock implementation in vanilla JS
 
 ### Functionality
 - Can pick session and break length
